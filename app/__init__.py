@@ -7,8 +7,6 @@ app = flask.Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-api = Api(app)
 
-from app.resources import HomeResource
-
-api.add_resource(HomeResource, '/')
+from app.routes import bp_api
+app.register_blueprint(bp_api)
