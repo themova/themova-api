@@ -9,18 +9,10 @@ class Translation(db.Model):
     """
     Translation is whole text requested by user for translation.
     """
-    __tablename__ = 'translation'
 
     translation_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(256))
-    created_ts = db.Column(db.DateTime)
-
-    def __init__(self, title, created_ts=None):
-        self.title = title
-        if created_ts is None:
-            self.created_ts = datetime.now()
-        else:
-            self.created_ts = created_ts
+    created_ts = db.Column(db.DateTime, default=datetime.utcnow)
 
     @classmethod
     def create(cls, title, text):
