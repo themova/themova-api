@@ -10,3 +10,4 @@ migrate = Migrate(app, db)
 
 from app.routes import bp_api
 app.register_blueprint(bp_api)
+from app import models
