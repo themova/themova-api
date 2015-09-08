@@ -16,10 +16,28 @@ class Translation(db.Model):
 
     @classmethod
     def create(cls, title, text):
-        translation = Translation(title)
+        translation = Translation(title=title)
         db.session.add(translation)
         for line in text.splitlines():
-            chunk = Chunk(line, translation.translation_id)
+            chunk = Chunk(text=line, translation_id=translation.translation_id)
             db.session.add(chunk)
         db.session.commit()
         return translation
+
+    @staticmethod
+    def get(translation_id):
+        return Translation.query.get(translation_id)
+
+    @staticmethod
+    def get_all():
+        return Translation.query.all()
+
+    def update(self, translation_id, title):
+        translation = Translation.get(translation_id)
+        translation.title = title
+        db.session.commit()
+
+    def delete(self, translation_id):
+        translation = Translation.get(translation_id)
+        db.session.delete(translation)
+        db.session.commit()
