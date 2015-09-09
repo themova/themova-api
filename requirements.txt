@@ -7,12 +7,16 @@ Flask-SQLAlchemy==2.0
 # dependencies
 alembic==0.7.7
 aniso8601==1.0.0
+flake8==2.4.1
 gunicorn==19.3.0
 itsdangerous==0.24
 Jinja2==2.8
 Mako==1.0.1
 MarkupSafe==0.23
 marshmallow==1.2.6
+mccabe==0.3.1
+pep8==1.5.7
+pyflakes==0.8.1
 pytz==2015.4
 six==1.9.0
 SQLAlchemy==1.0.8

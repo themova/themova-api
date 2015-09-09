@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from app import db
-
 from app.models.chunk import Chunk
 
 
@@ -32,12 +31,12 @@ class Translation(db.Model):
     def get_all():
         return Translation.query.all()
 
-    def update(self, translation_id, title):
-        translation = Translation.get(translation_id)
+    def update(self, title):
+        translation = Translation.get(self.translation_id)
         translation.title = title
         db.session.commit()
 
-    def delete(self, translation_id):
-        translation = Translation.get(translation_id)
+    def delete(self):
+        translation = Translation.get(self.translation_id)
         db.session.delete(translation)
         db.session.commit()
