@@ -32,11 +32,9 @@ class Translation(db.Model):
         return Translation.query.all()
 
     def update(self, title):
-        translation = Translation.get(self.translation_id)
-        translation.title = title
+        self.title = title
         db.session.commit()
 
     def delete(self):
-        translation = Translation.get(self.translation_id)
-        db.session.delete(translation)
+        db.session.delete(self)
         db.session.commit()
