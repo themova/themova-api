@@ -29,7 +29,7 @@ def marshal(data, schema, envelope=None):
     many = False
 
     if isinstance(data, (list, tuple)):
-        many=True
+        many = True
 
     if isinstance(schema, type):
         schema = schema(many=many)
@@ -72,7 +72,9 @@ def marshal_with(schema, envelope=None):
             resp = f(*args, **kwargs)
             if isinstance(resp, tuple):
                 data, code, headers = unpack(resp)
-                return marshal(data, schema, envelope), code, headers
+                if not data.get('error'):
+                    data = marshal(data, schema, envelope)
+                return data, code, headers
             else:
                 return marshal(resp, schema, envelope)
         return func_wrapper
