@@ -1,4 +1,5 @@
 import json
+import os
 
 from flask import Flask
 from flask.ext.testing import TestCase
@@ -39,6 +40,6 @@ class BaseThemovaTest(TestCase):
         app = Flask(__name__)
         app.config['TESTING'] = True
         app.test_client_class = JsonFlaskClient
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test_db.sqlite'
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'] + '_test'
         app.register_blueprint(bp_api)
         return app
