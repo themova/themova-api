@@ -1,8 +1,6 @@
-from flask import jsonify
 from flask.ext.restful import Resource
 from marshmallow import fields, Schema, ValidationError
 
-from app import app
 from app.models.translation import Translation
 from app.utils import dump_with, load_with
 
@@ -15,13 +13,6 @@ def not_blank(data):
 class TranslationSchema(Schema):
     title = fields.String(required=True, validate=not_blank)
     text = fields.String(required=True, validate=not_blank, load_only=True)
-
-
-@app.errorhandler(ValidationError)
-def validation_handler(error):
-    response = jsonify({'errors': error.messages})
-    response.status_code = 422
-    return response
 
 
 class HomeResource(Resource):

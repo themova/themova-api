@@ -4,7 +4,8 @@ import os
 from flask.ext.testing import TestCase
 from flask.testing import FlaskClient
 
-from app import app, db
+from app.application import create_app
+from app.extensions import db
 
 
 class JsonFlaskClient(FlaskClient):
@@ -35,8 +36,9 @@ class JsonFlaskClient(FlaskClient):
 class BaseThemovaTest(TestCase):
 
     def create_app(self):
-        config_file = os.environ.get('TEST_CONFIG_FILE_PATH', 'config_test')
-        app.config.from_object(config_file)
+        config_file = os.environ.get('TEST_CONFIG_FILE_PATH',
+                                     '../test/config_test.py')
+        app = create_app(config_file)
         test_database_url = os.environ.get('TEST_DATABASE_URL')
         if test_database_url:
             app.config['SQLALCHEMY_DATABASE_URI'] = test_database_url

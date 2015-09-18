@@ -3,9 +3,9 @@
 from flask.ext.script import Manager
 from flask.ext.migrate import MigrateCommand
 
-from app import app
+from app.application import create_app
 
-manager = Manager(app)
+manager = Manager(create_app)
 manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
