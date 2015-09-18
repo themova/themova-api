@@ -35,6 +35,7 @@ def dump_with(schema, envelope=None):
             resp = f(*args, **kwargs)
             if isinstance(resp, tuple):
                 data, code, headers = unpack(resp)
+                data = marshal(data, schema, envelope)
                 return data, code, headers
             else:
                 return marshal(resp, schema, envelope)

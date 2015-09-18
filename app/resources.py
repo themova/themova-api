@@ -14,7 +14,7 @@ def not_blank(data):
 
 class TranslationSchema(Schema):
     title = fields.String(required=True, validate=not_blank)
-    text = fields.Email(required=True, validate=not_blank, load_only=True)
+    text = fields.String(required=True, validate=not_blank, load_only=True)
 
 
 @app.errorhandler(ValidationError)
