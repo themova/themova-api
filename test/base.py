@@ -1,11 +1,10 @@
 import json
 import os
 
-from flask import Flask
 from flask.ext.testing import TestCase
 from flask.testing import FlaskClient
 
-from app.routes import bp_api
+from app import app, db
 
 
 class JsonFlaskClient(FlaskClient):
@@ -22,7 +21,7 @@ class JsonFlaskClient(FlaskClient):
         return super(JsonFlaskClient, self).post(*args, **kw)
 
     def put(self, *args, **kw):
-        """PUT method will be used mostly for json data"""
+        """ PUT method will be used mostly for json data"""
         if 'data' in kw:
             try:
                 kw['data'] = json.dumps(kw['data'])
@@ -36,10 +35,17 @@ class JsonFlaskClient(FlaskClient):
 class BaseThemovaTest(TestCase):
 
     def create_app(self):
-
-        app = Flask(__name__)
-        app.config['TESTING'] = True
+        config_file = os.environ.get('TEST_CONFIG_FILE_PATH', 'config_test')
+        app.config.from_object(config_file)
+        test_database_url = os.environ.get('TEST_DATABASE_URL')
+        if test_database_url:
+            app.config['SQLALCHEMY_DATABASE_URI'] = test_database_url
         app.test_client_class = JsonFlaskClient
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'] + '_test'
-        app.register_blueprint(bp_api)
         return app
+
+    def setUp(self):
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()

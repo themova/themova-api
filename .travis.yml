@@ -1,9 +1,11 @@
-language: python
-python:
-- '3.4'
-- 3.5.0b3
+before_script:
+- psql -c 'create database themova_test_db;' -U postgres
 install: pip install -r requirements.txt
-script: nosetests
+language: python
 notifications:
   slack:
     secure: WBQzL8NO7zBRFHLHt01hinsN6yJwUoIhWrHMrVdS/ERWOYV0X0iJ3mqE2UCVv34CkC5NzUcRus08JV8M2P28B92DOJ07MoAfWDjicJvq0bbithajC8J/I/NbeLUnQEqwRB67UOSgEKWhkYsEowThfs9tDa3xXnCZ74K78SKxpwxQb/itgxkA8uJUeD3NW/XOuG+eVUH9wUdx8x556iXnAuRXF8itSiXQw17jMgBNiawFKPkWdV64xH4IAH2tJEk/2unE/9l/Xhvhh+t6ev8aG1sP2lnk47QHeMa1uNoLQu/3lc6l/3cl9/Vm2geuE/opM5w/4cjlUlaI2p2ZUDK4zyZdHWT33NOVeLPU7wj0bRRvF1m4TmFytgnq3Yt6PKpU2xyqpKM3G22jj9ZHHYLMtB9DeD6+QS5yvwOqhAo+nZRIJnVuEYwU8+6RERBUB8C8HTo1v8z2JUyYblkt83qCCJMo7pHzHi+t2hjRdVVPbOu5KZmBtcC+a7IlJtkmmu3Mxviv6rr7Kbq5M1UHhA+Mlgn6yriUGRnKMP4j+WqOgEhj9V0BkuFwfh+8pBrC3BdnPVDlqOFnJeMLa06uBKK2dAy8EZsqqqUACW3vEHFLov0x66MWbaD7D30XbWI3hrAvgXhFp0wm6jB8oF1Qqa2/6OSdeckQ/TpRsj1nzmqoVjk=
+python:
+- '3.4'
+- 3.5.0b3
+script: nosetests

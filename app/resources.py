@@ -20,7 +20,7 @@ class TranslationSchema(Schema):
 @app.errorhandler(ValidationError)
 def validation_handler(error):
     response = jsonify({'errors': error.messages})
-    response.status_code = 400
+    response.status_code = 422
     return response
 
 
